@@ -5,6 +5,10 @@ from list_with_tasks.views import (
     task_status,
     TaskCreateView,
     TaskUpdateView,
+    task_delete,
+    TagCreateView,
+    TagUpdateView,
+    tag_delete
 )
 
 
@@ -16,4 +20,8 @@ urlpatterns = [
 
     path("tasks/create/", TaskCreateView.as_view(), name="task-form"),
     path("tasks/<int:pk>/update/", TaskUpdateView.as_view(), name="task-form"),
+    path("tasks/<int:pk>/delete/", task_delete, name="task-delete"),
+    path("tags/create/", TagCreateView.as_view(), name="tag-form"),
+    path("tags/<int:pk>/update/", TagUpdateView.as_view(), name="tag-form"),
+    path("tags/<int:pk>/delete/", tag_delete, name="tag-delete"),
 ]

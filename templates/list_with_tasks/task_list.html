@@ -39,7 +39,7 @@
           {% endif %}
       </p>
 
-      <a href="{% url 'list_with_tasks:task-form' task.id %}">Update</a> <a href="#">Delete</a>
+      <a href="{% url 'list_with_tasks:task-form' task.id %}">Update</a> <a class="text-danger" href="{% url 'list_with_tasks:task-delete' task.id %}">Delete</a>
       <br>
   	{% endfor %}
 
