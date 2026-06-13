@@ -7,22 +7,39 @@
 {% block content %}
   <h1 class="d-flex justify-content-between align-items-center">
     Tasks list:
-    <a class="btn btn-primary" href="#">Add task</a>
+    <a class="btn btn-primary" href="{% url 'list_with_tasks:task-form' %}">Add task</a>
 </h1>
   {% if tasks %}
   	{% for task in tasks %}
   		<h3>
-        <a href="#">{{ task.content }}</a>
+        {{ task.content }}
         {% if task.is_complete %}
-        	<a type="submit" class="btn btn-secondary">Undo</a>
+        	<a href="{% url 'list_with_tasks:task-toggle' task.id %}" class="btn btn-secondary">Undo</a>
           {% else %}
-            <a type="submit" class="btn btn-success">Complete</a>
+            <a href="{% url 'list_with_tasks:task-toggle' task.id %}" class="btn btn-success">Complete</a>
         {% endif %}
       </h3>
       <p>Created at: {{ task.created_at }}</p>
       <p>Deadline time: {{ task.deadline }}</p>
-      <p>Done? - {{ task.is_complete }}</p>
-      <p>Tags: {{ task.tags }}</p>
+      <p>
+        {% if task.is_complete %}
+      	  <strong class="text-success">Done</strong>
+          {% else %}
+          <strong class="text-danger">Not done</strong>
+        {% endif %}
+      </p>
+      <p>
+        {% if task.tags.all %}
+          Tags:
+          {% for tag in task.tags.all %}
+            <span class="badge badge-info">{{ tag.name }}</span>
+            {% endfor %}
+            {% else %}
+            <p class="text-muted">No tags</p>
+          {% endif %}
+      </p>
+
+      <a href="{% url 'list_with_tasks:task-form' task.id %}">Update</a> <a href="#">Delete</a>
       <br>
   	{% endfor %}
 
