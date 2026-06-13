@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Tags page</title>
+{% endblock %}
+
+{% block content %}
+  <h1>Tags List: <a class="btn btn-primary" href="{% url 'list_with_tasks:tag-form' %}">Add tag</a></h1>
+  {% if tags %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tag in tags %}
+          <tr>
+            <td>{{ tag.name }}</td>
+            <td><a href="{% url 'list_with_tasks:tag-form' tag.id %}" class="btn btn-secondary">Update</a></td>
+            <td><a href="{% url 'list_with_tasks:tag-delete' tag.pk %}" class="btn btn-secondary">Delete</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>There are no tags in the service.</p>
+  {% endif %}
+{% endblock %}
